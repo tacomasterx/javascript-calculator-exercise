@@ -1,57 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8" >
+        <meta name="viewport" content="width=device-width, initial-scale=1" >
         <title>Calculadora</title>
-        <link href="styles/style.css" rel="stylesheet">
+        <link href="styles/style.css" rel="stylesheet" >
     </head>
     <body>
-        <div class="calculator">
-            <div class="container screen-section">
-                <div class="screen-history">
-                    <p class="history" id="history-3">0</p>
-                    <p class="history" id="history-2">0</p>
-                    <p class="history" id="history-1">0</p>
-                    <p class="history" id="history-0">0</p>
-                    <p class="history" id="buffer">0</p>
+        <div class="calculator" >
+            <div class="container screen-section" >
+                <div class="screen-history" >
+                    <p class="history" id="history-3" >0</p>
+                    <p class="history" id="history-2" >0</p>
+                    <p class="history" id="history-1" >0</p>
+                    <p class="history" id="history-0" >0</p>
+                    <p class="history" id="buffer" >0</p>
                 </div>
-                <div class="screen-box">
+                <div class="screen-box" >
                     <input type="text" name="screen-textbox" id="screen-textbox" value="0" disabled>
-                    <input type="hidden" name="hidden-operand" id="hidden-operand" value="">
-                    <input type="hidden" name="hidden-operand" id="hidden-action" value="false">
+                    <input type="hidden" name="hidden-operator" id="hidden-operator" value="" >
+                    <input type="hidden" name="hidden-action" id="hidden-action" value="false" >
                 </div>
             </div>
 
 
-            <div class="container keyboard-section">
-                <button type="button" class="button button-0">%</button>
-                <button type="button" class="button button-1" onclick="clearAllButtonPressed()">CE</button>
-                <button type="button" class="button button-2" onclick="clearTextboxButtonPressed()">C</button>
-                <button type="button" class="button button-3"><-</button>
-                <button type="button" class="button button-4">1/x</button>
-                <button type="button" class="button button-5">x2</button>
-                <button type="button" class="button button-6">x(1/2)</button>
-                <button type="button" class="button button-7">/</button>
-                <button type="button" class="button button-8" onclick="numberButtonPressed(7)">7</button>
-                <button type="button" class="button button-9" onclick="numberButtonPressed(8)">8</button>
-                <button type="button" class="button button-10" onclick="numberButtonPressed(9)">9</button>
-                <button type="button" class="button button-11">X</button>
-                <button type="button" class="button button-12" onclick="numberButtonPressed(4)">4</button>
-                <button type="button" class="button button-13" onclick="numberButtonPressed(5)">5</button>
-                <button type="button" class="button button-14" onclick="numberButtonPressed(6)">6</button>
-                <button type="button" class="button button-15">-</button>
-                <button type="button" class="button button-16" onclick="numberButtonPressed(1)">1</button>
-                <button type="button" class="button button-17" onclick="numberButtonPressed(2)">2</button>
-                <button type="button" class="button button-18" onclick="numberButtonPressed(3)">3</button>
-                <button type="button" class="button button-19" onclick="regularOperandButtonPressed('sum')">+</button>
-                <button type="button" class="button button-20">+/-</button>
-                <button type="button" class="button button-21" onclick="numberButtonPressed(0)">0</button>
-                <button type="button" class="button button-22">.</button>
-                <button type="button" class="button button-23" onclick="equalButtonPressed()">=</button>
+            <div class="container keyboard-section" >
+                <button type="button" class="button button-0" onclick="regularOperatorButtonPressed('percent')" >%</button>
+                <button type="button" class="button button-1" onclick="clearEverythingButtonPressed()" >CE</button>
+                <button type="button" class="button button-2" onclick="clearButtonPressed()" >C</button>
+                <button type="button" class="button button-3" onclick="backspaceButtonPressed()" ><-</button>
+                <button type="button" class="button button-4" onclick="singleOperatorButtonPressed('inverse')" >1/x</button>
+                <button type="button" class="button button-5" onclick="singleOperatorButtonPressed('square')" >x2</button>
+                <button type="button" class="button button-6" onclick="singleOperatorButtonPressed('square_root')" >x(1/2)</button>
+                <button type="button" class="button button-7" onclick="regularOperatorButtonPressed('divide')" >/</button>
+                <button type="button" class="button button-8" onclick="numberButtonPressed(7)" >7</button>
+                <button type="button" class="button button-9" onclick="numberButtonPressed(8)" >8</button>
+                <button type="button" class="button button-10" onclick="numberButtonPressed(9)" >9</button>
+                <button type="button" class="button button-11" onclick="regularOperatorButtonPressed('multiplicate')" >X</button>
+                <button type="button" class="button button-12" onclick="numberButtonPressed(4)" >4</button>
+                <button type="button" class="button button-13" onclick="numberButtonPressed(5)" >5</button>
+                <button type="button" class="button button-14" onclick="numberButtonPressed(6)" >6</button>
+                <button type="button" class="button button-15" onclick="regularOperatorButtonPressed('substract')" >-</button>
+                <button type="button" class="button button-16" onclick="numberButtonPressed(1)" >1</button>
+                <button type="button" class="button button-17" onclick="numberButtonPressed(2)" >2</button>
+                <button type="button" class="button button-18" onclick="numberButtonPressed(3)" >3</button>
+                <button type="button" class="button button-19" onclick="regularOperatorButtonPressed('add')" >+</button>
+                <button type="button" class="button button-20" onclick="changeSignButtonPressed()" >+/-</button>
+                <button type="button" class="button button-21" onclick="numberButtonPressed(0)" >0</button>
+                <button type="button" class="button button-22" onclick="dotButtonPressed()" >.</button>
+                <button type="button" class="button button-23" onclick="equalButtonPressed()" >=</button>
             </div>
         </div>
 
-        <script type="text/javascript" src="scripts/main.js"></script>
+        <script type="text/javascript" src="scripts/main.js" ></script>
     </body>
 </html>
