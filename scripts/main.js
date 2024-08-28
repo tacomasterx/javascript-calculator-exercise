@@ -11,7 +11,7 @@ function getHistoryArray() {
 
 function getBuffer() {
     var bufferElement = document.getElementById("buffer");
-    return parseFloat( bufferElement.value );
+    return parseFloat( bufferElement.innerHTML );
 }
 
 function setBuffer(newValue) {
@@ -27,23 +27,21 @@ function refreshHistoryArray(newValue) {
     document.getElementById("history-0").innerHTML = newValue;
 }
 
-function getOperand() {
-    var operandElement = document.getElementById("hidden-operand");
-    return operandElement.value;
+function getOperator() {
+    var operatorElement = document.getElementById("hidden-operator");
+    return operatorElement.value;
 }
 
 function performOperation() {
-    var textBox = document.getElementById("screen-textbox");
+    var textbox = document.getElementById("screen-textbox");
     var newValue = 0;
-    var operand = "";
+    var operator = "";
     var lastValue = 0;
     var resultValue = 0;
-    if ( isNumeric( textBox.value ) ) {
-        newValue = parseFloat( textBox.value );
-    }
+    newValue = parseFloat( textbox.value );
     lastValue = getBuffer();
-    operand = getOperand();
-    switch (operand) {
+    operator = getOperator();
+    switch (operator) {
         case "percent":
             resultValue = (newValue * lastValue) / 100;
             break;
@@ -84,7 +82,7 @@ function performOperation() {
             resultValue = lastValue - newValue;
             break;
 
-        case "sum":
+        case "add":
             resultValue = newValue + lastValue;
             break;
 
@@ -115,14 +113,40 @@ function numberButtonPressed(number) {
     } 
 }
 
-function regularOperandButtonPressed(operand) {
-    var operandElement = document.getElementById("hidden-operand");
+function regularOperatorButtonPressed(operator) {
+    var operatorElement = document.getElementById("hidden-operator");
     var newElement = document.getElementById("screen-textbox");
-    var newValue = newElement.value;
-    operandElement.value = operand;
-    refreshHistoryArray(newValue);
-    newElement.value = 0;
+    var newValue = parseFloat( newElement.value );
+    operatorElement.value = operator;
+    setBuffer(newValue);
     document.getElementById("hidden-action").value = "true";
+}
+
+function singleOperatorButtonPressed(operator) {
+    var operatorElement = document.getElementById("hidden-operator");
+    var newElement = document.getElementById("screen-textbox");
+    var newValue = parseFloat( newElement.value );
+    operatorElement.value = operator;
+    var resultValue = performOperation(newValue);
+    newElement.value = resultValue;
+    document.getElementById("hidden-action").value = "true";
+}
+
+function changeSignButtonPressed() {
+    var textbox = document.getElementById("screen-textbox");
+    var value = parseFloat( textbox.value );
+    value = value * -1;
+    textbox.value = value;
+}
+
+function dotButtonPressed() {
+    var textbox = document.getElementById("screen-textbox");
+    var text = textbox.value;
+    if (text.includes(".")) {
+        return;
+    }
+    text = text + ".";
+    textbox.value = text;
 }
 
 function equalButtonPressed() {
@@ -130,19 +154,118 @@ function equalButtonPressed() {
     var resultValue = performOperation();
     textbox.value = resultValue;
     refreshHistoryArray(resultValue);
+    // document.getElementById("hidden-operator").value = "";
     document.getElementById("hidden-action").value = "true";
 }
 
-function clearTextboxButtonPressed() {
+function backspaceButtonPressed() {
     var textbox = document.getElementById("screen-textbox");
-    textbox.value = 0;
+    var text = textbox.value;
+    var size = text.length;
+    var result = text.substring(0, size-1);
+    if (result == "") {
+        result = "" + 0;
+    }
+    textbox.value = result;
 }
 
-function clearAllButtonPressed() {
+function clearButtonPressed() {
+    document.getElementById("screen-textbox").value = 0;
+}
+
+function clearEverythingButtonPressed() {
     document.getElementById("screen-textbox").value = 0;
     for (i=0; i<4; i++) {
         document.getElementById("history-" + i).innerHTML = 0;
     }
-    document.getElementById("buffer").value = 0;
-    document.getElementById("hidden-operand").value = 0;
+    document.getElementById("buffer").innerHTML = 0;
+    document.getElementById("hidden-operator").value = 0;
 }
+
+document.addEventListener('keydown', function(event) {
+    switch (event.key) {
+        case "0":
+            numberButtonPressed(0);
+            break;
+
+        case "1":
+            numberButtonPressed(1);
+            break;
+
+        case "2":
+            numberButtonPressed(2);
+            break;
+
+        case "3":
+            numberButtonPressed(3);
+            break;
+
+        case "4":
+            numberButtonPressed(4);
+            break;
+
+        case "5":
+            numberButtonPressed(5);
+            break;
+
+        case "6":
+            numberButtonPressed(6);
+            break;
+
+        case "7":
+            numberButtonPressed(7);
+            break;
+
+        case "8":
+            numberButtonPressed(8);
+            break;
+
+        case "9":
+            numberButtonPressed(9);
+            break;
+
+        case "-":
+            regularOperatorButtonPressed("substract");
+            break;
+
+        case "+":
+            regularOperatorButtonPressed("add");
+            break;
+
+        case "*":
+            regularOperatorButtonPressed("multiplicate");
+            break;
+
+        case "/":
+            regularOperatorButtonPressed("divide");
+            break;
+
+        case "Backspace":
+            backspaceButtonPressed();
+            break;
+
+        case "c":
+            clearButtonPressed();
+            break;
+
+        case "Escape":
+            clearButtonPressed();
+            break;
+
+        case ".":
+            dotButtonPressed();
+            break;
+
+        case "=":
+            equalButtonPressed();
+            break;
+
+        case "Enter":
+            equalButtonPressed();
+            break;
+
+        default:
+            console.log(event.key);
+            break;
+    }
+});
